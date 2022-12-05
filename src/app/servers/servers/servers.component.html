@@ -3,11 +3,11 @@
         <!-- Por cada servidor crearemos una tarjeta con el nombre y
         el
         estado del servidor-->
-        <div class="card mt-2">
-            <div class="card-header">Nombre del servidor</div>
+        <div class="card mt-2" *ngFor="let item of servers">
+            <div class="card-header">{{ item.name }}</div>
             <div class="card-body">
                 <h5 class="card-title">Server status</h5>
-                <p class="card-text">Estado del servidor</p>
+                <p class="card-text">{{ item.status }}</p>
             </div>
         </div>
     </div>

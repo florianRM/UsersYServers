@@ -1,1 +1,13 @@
-<p>users works!</p>
+<div class="row">
+    <div class="col">
+        <!-- Mostraremos una tarjeta por cada usuario -->
+        <div class="card mt-2" *ngFor="let user of users">
+            <div class="card-header">{{ user.name }}</div>
+            <div class="card-body">
+                <span><strong>User id:</strong> {{ user.id }}</span>
+                <br>
+                <span><strong>User email: </strong> {{ user.email }}</span>
+            </div>
+        </div>
+    </div>
+</div>
