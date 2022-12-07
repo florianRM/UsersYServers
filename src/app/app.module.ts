@@ -9,10 +9,12 @@ import { RouterModule } from '@angular/router';
 import { ServersModule } from './servers/servers.module';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,8 @@ import { UsersModule } from './users/users.module';
     RouterModule,
     ServersModule,
     HttpClientModule,
-    UsersModule
+    UsersModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

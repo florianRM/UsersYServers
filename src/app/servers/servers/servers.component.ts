@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Server } from '../interfaces/server.interface';
 import { ServersService } from '../servers.service';
 
 @Component({
@@ -7,11 +8,9 @@ import { ServersService } from '../servers.service';
 })
 export class ServersComponent implements OnInit {
 
-  servers;
+  servers: Server[] = this.serversService.servers;
 
-  constructor(private serversService: ServersService) {
-    this.servers = serversService.servers;
-  }
+  constructor(private serversService: ServersService) { }
 
   ngOnInit(): void {
   }

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Server } from './interfaces/server.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServersService {
   
-  servers = [
+  private _servers: Server[] = [
     {
       id: 1,
       name: 'Productionserver',
@@ -24,5 +25,9 @@ export class ServersService {
   ]
 
   constructor() { }
+
+  get servers(): Server[] {
+    return [...this._servers];
+  }
 
 }

@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ServersComponent } from './servers/servers/servers.component';
 import { UsersComponent } from './users/users/users.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { AdduserComponent } from './users/adduser/adduser.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthGuardService } from './auth/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -12,12 +15,23 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: 'servers',
-    component: ServersComponent
+    component: ServersComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'users',
-    component: UsersComponent
+    component: UsersComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'addUser',
+    component: AdduserComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: '**',

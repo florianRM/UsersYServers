@@ -1,23 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsersComponent } from './users/users.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AdduserComponent } from './adduser/adduser.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
 @NgModule({
   declarations: [
-    UsersComponent,
-    AdduserComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
     RouterModule
+  ],
+  providers: [
+    CookieService
   ]
 })
-export class UsersModule { }
+export class AuthModule { }
