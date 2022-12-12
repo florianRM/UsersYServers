@@ -7,6 +7,8 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { AdduserComponent } from './users/adduser/adduser.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuardService } from './auth/auth-guard.service';
+import { UserComponent } from './users/user/user.component';
+import { EditServerComponent } from './servers/edit-server/edit-server.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,16 @@ const routes: Routes = [
   {
     path: 'addUser',
     component: AdduserComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'servers/:id/edit',
+    component: EditServerComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'user/:id/:name',
+    component: UserComponent,
     canActivate: [AuthGuardService]
   },
   {

@@ -16,6 +16,10 @@ export class UsersService {
     return this.http.get<User[]>(this.url);
   }
 
+  user(id: string): Observable<User> {
+    return this.http.get<User>(`${this.url}/${id}`)
+  }
+
   addUser(user: User): Observable<User> {
     return this.http.post<User>(this.url, user, {
       headers: {

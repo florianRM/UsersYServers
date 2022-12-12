@@ -8,7 +8,8 @@
                 <br>
                 <span><strong>User email: </strong> {{ user.email }}</span>
             </div>
+            <button class="btn btn-secondary view" [routerLink]="['/user', user.id, user.name]">View User</button>
         </div>
-        <button class="btn btn-primary" routerLink="/addUser">Add User</button>
+        <button class="btn btn-primary addUser" routerLink="/addUser">Add User</button>
     </div>
 </div>
