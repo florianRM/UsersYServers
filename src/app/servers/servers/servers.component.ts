@@ -5,7 +5,11 @@ import { ServersService } from '../servers.service';
 
 @Component({
   selector: 'app-servers',
-  templateUrl: './servers.component.html'
+  templateUrl: './servers.component.html',
+  styles: [
+    '.col {display: flex; gap:50px}',
+    '.card-title {margin-bottom: 20px}'
+  ]
 })
 export class ServersComponent implements OnInit {
 
@@ -23,6 +27,13 @@ export class ServersComponent implements OnInit {
   //   // navigation to Servers page 
   //   this.router.navigate(['/servers']);
   // }
+
+  onLoadServer(id: number) {
+    // complex code that connects to a backend
+
+    // navigation to Servers page
+    this.router.navigate(['/servers', id, 'edit'], { queryParams: { allowEdit: id }, fragment: 'loading' });
+  }
 
   // onReload() {
   //   this.router.navigate(['servers'], { relativeTo: this.route});
