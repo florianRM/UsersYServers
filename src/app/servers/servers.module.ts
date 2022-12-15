@@ -4,6 +4,7 @@ import { ServersComponent } from './servers/servers.component';
 import { RouterModule } from '@angular/router';
 import { EditServerComponent } from './edit-server/edit-server.component';
 import { ServerComponent } from './server/server.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -15,7 +16,8 @@ import { ServerComponent } from './server/server.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ]
 })
 export class ServersModule { }

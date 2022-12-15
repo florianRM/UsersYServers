@@ -5,7 +5,7 @@
         estado del servidor-->
         <div class="col-sm-4">
             <a href="#" class="card mt-2" *ngFor="let server of servers; let i = index" 
-            [routerLink]="['/servers', i]" [queryParams]="{allowEdit: '1'}" 
+            [routerLink]="['/servers', i]" [queryParams]="{allowEdit: server.id === 3 ? '1' : '0'}" 
             fragment="loading">
             <div class="card-header">{{ server.name }}</div>
         </a>

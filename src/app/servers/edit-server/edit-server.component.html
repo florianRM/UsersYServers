@@ -1,1 +1,15 @@
-<p>edit-server works!</p>
+<div *ngIf="!allowEdit" class="alert alert-warning" role="alert">
+    You are not allowed to edit!
+</div>
+
+<form (ngSubmit)="edit()" *ngIf="allowEdit">
+    <label for="name">Server Name</label>
+    <input class="form-control" type="text" name="name" [(ngModel)]="name">
+
+    <label for="status">Server Status</label>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="status" [(ngModel)]="estado">
+        <option value="online">Online</option>
+        <option value="offline">Offline</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Update Server</button>
+</form>
