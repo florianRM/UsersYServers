@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   selector: 'app-register',
   templateUrl: './register.component.html'
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
   email: string = '';
   password: string = '';
@@ -14,19 +14,16 @@ export class RegisterComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
-
-  register() {
-    const user = { email: this.email, password: this.password};
-    this.authService.register(user)
-    .subscribe({
-      next: resp => {
-        this.authService.setToken(resp.token);
-        this.router.navigateByUrl('/');
-      },
-      error: error => console.log(error)
-    })
-  }
+  // register() {
+  //   const user = { email: this.email, password: this.password};
+  //   this.authService.register(user)
+  //   .subscribe({
+  //     next: resp => {
+  //       this.authService.setToken(resp.token);
+  //       this.router.navigateByUrl('/');
+  //     },
+  //     error: error => console.log(error)
+  //   })
+  // }
 
 }

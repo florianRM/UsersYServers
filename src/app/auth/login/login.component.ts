@@ -6,26 +6,16 @@ import { AuthService } from '../auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   email: string = '';
   password: string = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
-
-  login() {
-    const user = {email: this.email, password: this.password};
-    this.authService.login(user)
-    .subscribe({
-      next: resp => {
-        this.authService.setToken(resp.token);
-        this.router.navigateByUrl('/');
-      },
-      error: error => console.log(error)
-    })
+  login(): void {
+    this.authService.isAuthenticated(this.email, this.password);
+    this.router.navigate(['/']);
   }
 
 }

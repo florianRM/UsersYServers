@@ -3,13 +3,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Server } from '../interfaces/server.interface';
 import { ServersService } from '../servers.service';
 
+// @Component({
+//   selector: 'app-edit-server',
+//   templateUrl: './edit-server.component.html',
+//   styles: [
+//     'form {display: flex; flex-direction: column; gap: 10px}',
+//     '.btn {width: 140px}'
+//   ]
+// })
 @Component({
   selector: 'app-edit-server',
   templateUrl: './edit-server.component.html',
   styles: [
-    'form {display: flex; flex-direction: column; gap: 10px}',
-    '.btn {width: 140px}'
-  ]
+        'form {display: flex; flex-direction: column; gap: 10px}',
+        '.btn {width: 140px}'
+      ]
 })
 export class EditServerComponent implements OnInit {
 

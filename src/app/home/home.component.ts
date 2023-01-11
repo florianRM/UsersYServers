@@ -1,14 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+  constructor(private authService: AuthService) {  }
 
-  constructor() { }
+  isLogin(): boolean {
+    if(localStorage.getItem('login')) {
+      return true;
+    }
+    return false;
+  }
 
-  ngOnInit(): void {
+  logout(): void {
+    this.authService.logout();
   }
 
 }
