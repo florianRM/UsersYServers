@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { User } from '../users/interfaces/user.interface';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of, switchMap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { UsersService } from '../users/users.service';
+import { Token } from './interface/token.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +12,16 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthService {
 
   // private url: string = "https://reqres.in/api";
-  private url: string = "http://localhost:3000/auth/login";
-  private user!: User;
+  private url: string = "http://localhost:8000/auth/login";
+  private urlToken: string = "http://localhost:8000/jwt";
+  isAdmin: boolean = false;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   }
 
-  constructor(private http: HttpClient, private cookies: CookieService) { }
+  constructor(private http: HttpClient, private cookies: CookieService, private usersService: UsersService) { }
 
   // login(user: any): Observable<any> {
   //   return this.http.post<any>(`${this.url}/login`, user, this.httpOptions);
@@ -36,28 +39,59 @@ export class AuthService {
   //   return this.cookies.get('token');
   // }
 
-  // login(email: string, password: string): void {
-  //   const login = localStorage.getItem('login');
-  //   this.http.get<User[]>(`${this.url}?q=${email}`)
+  // isAuthenticated(email: string, password: string): void {
+  //   this.usersService.getUserByEmail(email)
   //   .subscribe({
   //     next: res => {
-  //       if(!login && email === res[0].email && password === res[0].name) {
+  //       if(res.length && password === res[0].name) {
   //         localStorage.setItem('login', 'true');
   //       }
   //     }
   //   })
   // }
 
-  isAuthenticated(email: string, password: string): void {
+  // login(email: string, password: string):Observable<boolean>{
+  //   //Recuperamos el usuario y comprobamos que la contraseña sea correcta
+  //   return this.usersService.getUserByEmail(email)
+  //   .pipe( switchMap((user=> {
+  //     if (user.length && user[0].name===password){
+  //       localStorage.setItem('authenticated', 'true');
+  //       return of(true)
+  //     }
+  //     else{
+  //       localStorage.setItem('authenticaded', 'false');
+  //       return of(false)
+  //     }
+  //   })))
+  // }
+
+  isAuthenticated(): Observable<boolean> {
+    const httpHeaders: HttpHeaders = new HttpHeaders()
+    .set('Authorization', `Bearer ${this.cookies.get('token')}`
+    );
+
+    return this.http.get<any>(this.urlToken, {headers: httpHeaders})
+    .pipe( switchMap(resp => {
+      return of(true);
+    }), catchError(error => {
+      this.cookies.delete('token');
+      return of(false);
+    }))
+  }
+
+  login(email: string, password: string): Observable<boolean> {
     const user = {email, password}
-    this.http.post<string>(this.url, user)
-    .subscribe({
-      next: res => localStorage.setItem('token', res),
-      error: err => console.log(err)
-    });
+    return this.http.post<Token>(this.url, user, this.httpOptions)
+    .pipe( switchMap(token => {
+      this.cookies.set('token', token.access_token);
+      return of(true);
+    }), catchError(error => {
+      this.cookies.delete('token');
+      return of(false);
+    }))
   }
 
   logout(): void {
-    localStorage.removeItem('login');
+    this.cookies.delete('token');
   }
 }

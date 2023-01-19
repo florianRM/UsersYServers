@@ -14,7 +14,10 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   login(): void {
-    this.authService.isAuthenticated(this.email, this.password);
+    this.authService.login(this.email, this.password)
+    .subscribe({
+      next: res => localStorage.setItem('login', 'true')
+    })
     this.router.navigate(['/']);
   }
 

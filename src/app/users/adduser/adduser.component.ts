@@ -11,7 +11,8 @@ export class AdduserComponent implements OnInit {
   user: User = {
     id: 0,
     name: '',
-    email: ''
+    email: '',
+    rol: ''
   }
   added: boolean = false;
 

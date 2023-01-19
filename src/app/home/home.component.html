@@ -1,6 +1,6 @@
 <h2>Server Manager App</h2>
 <p>Manage your Servers and Users</p>
-<button *ngIf="!isLogin();else logoutTem" class="btn btn-primary" routerLink="/login">Log in</button>
+<button *ngIf="!isLogin;else logoutTem" class="btn btn-primary" routerLink="/login">Log in</button>
 <ng-template #logoutTem>
     <button (click)="logout()" class="btn btn-primary">Log Out</button>
 </ng-template>

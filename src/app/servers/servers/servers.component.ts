@@ -11,7 +11,7 @@ import { ServersService } from '../servers.service';
     '.card-title {margin-bottom: 20px}'
   ]
 })
-export class ServersComponent implements OnInit {
+export class ServersComponent {
 
   servers: Server[] = this.serversService.servers;
 
@@ -19,8 +19,6 @@ export class ServersComponent implements OnInit {
             private router: Router,
             private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-  }
 
   // onLoadServers() {
   //   // complex code that connects to a backend
