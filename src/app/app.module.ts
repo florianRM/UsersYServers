@@ -7,9 +7,11 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ServersModule } from './servers/servers.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { FormsModule } from '@angular/forms';
+import { AuthInterceptorService } from './auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,16 @@ import { AuthModule } from './auth/auth.module';
     RouterModule,
     ServersModule,
     AuthModule,
-    UsersModule
+    UsersModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { User } from '../users/interfaces/user.interface';
 import { catchError, Observable, of, switchMap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { UsersService } from '../users/users.service';
+import { Router } from '@angular/router';
 import { Token } from './interface/token.interface';
+import { UsersService } from '../users/users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class AuthService {
     })
   }
 
-  constructor(private http: HttpClient, private cookies: CookieService, private usersService: UsersService) { }
+  constructor(private http: HttpClient, private cookies: CookieService, private usersService: UsersService, private route: Router) { }
 
   // login(user: any): Observable<any> {
   //   return this.http.post<any>(`${this.url}/login`, user, this.httpOptions);
@@ -70,7 +70,7 @@ export class AuthService {
     .set('Authorization', `Bearer ${this.cookies.get('token')}`
     );
 
-    return this.http.get<any>(this.urlToken, {headers: httpHeaders})
+    return this.http.get<any>(this.urlToken)
     .pipe( switchMap(resp => {
       return of(true);
     }), catchError(error => {
@@ -93,5 +93,6 @@ export class AuthService {
 
   logout(): void {
     this.cookies.delete('token');
+    this.route.navigate(['/']);
   }
 }

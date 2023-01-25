@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { EditServerComponent } from './edit-server/edit-server.component';
 import { ServerComponent } from './server/server.component';
 import { FormsModule } from '@angular/forms';
+import { AuthInterceptorService } from '../auth-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 

@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
+import { AuthGuard } from './auth-guard.guard';
 import { HomeComponent } from './home/home.component';
-import { AuthGuardService } from './auth/auth-guard.guard';
-import { LoginComponent } from './auth/login/login.component';
 import { EditServerComponent } from './servers/edit-server/edit-server.component';
 import { ServerComponent } from './servers/server/server.component';
 import { ServersComponent } from './servers/servers/servers.component';
@@ -17,13 +16,9 @@ const routes: Routes = [
     component: HomeComponent,
     pathMatch: 'full'
   },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
   { path: 'servers', 
-    component: ServersComponent, 
-    canActivate: [AuthGuardService], 
+    component: ServersComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: ':id/edit', component: EditServerComponent },
       { path: ':id', component: ServerComponent }
@@ -31,18 +26,15 @@ const routes: Routes = [
   },
   { path: 'users', component: UsersComponent, children: [
       { path: ':id/:name', component: UserComponent },
-    ], 
-    canActivate: [AuthGuardService]
+    ]
   },
   {
     path: 'addUser',
-    component: AdduserComponent,
-    canActivate: [AuthGuardService]
+    component: AdduserComponent
   },
   {
     path: 'user/:id/:name',
-    component: UserComponent,
-    canActivate: [AuthGuardService]
+    component: UserComponent
   },
   {
     path: '**',
